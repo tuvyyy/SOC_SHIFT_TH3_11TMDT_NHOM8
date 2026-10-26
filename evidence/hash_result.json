@@ -1,0 +1,7 @@
+{
+  "file": "C:\\SOC_SHIFT_TH3_11TMDT_NHOM8\\data\\artifact.txt",
+  "baseline": "C:\\SOC_SHIFT_TH3_11TMDT_NHOM8\\data\\hash_baseline.txt",
+  "expected": "bada325b6efa645b6272c257ee01add7c061dffba9e3c233621ed832d320994c",
+  "actual": "adf82e65e0c245e5a86d868fcf5869c77da573171e36b6f1730059bf4324f138",
+  "status": "MISMATCH"
+}

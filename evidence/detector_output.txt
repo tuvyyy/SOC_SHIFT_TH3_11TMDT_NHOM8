@@ -1,0 +1,17 @@
+Đã đọc 15 sự kiện; 2 IP cần kiểm tra (toàn bộ file).
+
+[HIGH] IP=203.0.113.77 | failed=5 | users=admin, root
+  - 5 lần login_failed (ngưỡng 4)
+  - Có login_success sau login_failed: cần đối chiếu thời gian / phiên / MFA; chưa đủ kết luận tài khoản bị chiếm
+    2026-10-16T08:10:01 | admin | login_failed | vpn-gateway | reason=bad_password
+    2026-10-16T08:10:14 | admin | login_failed | vpn-gateway | reason=bad_password
+    2026-10-16T08:10:26 | root | login_failed | vpn-gateway | reason=unknown_user
+    2026-10-16T08:10:39 | admin | login_failed | vpn-gateway | reason=bad_password
+    2026-10-16T08:10:52 | admin | login_failed | vpn-gateway | reason=bad_password
+    2026-10-16T08:11:12 | admin | login_success | vpn-gateway | MFA=unknown; session_created=true
+
+[MEDIUM] IP=198.51.100.24 | failed=3 | users=binh, chi, mai
+  - 3 tài khoản bị thử (ngưỡng 3); giả thuyết password spraying
+    2026-10-16T08:14:05 | mai | login_failed | vpn-gateway | reason=bad_password
+    2026-10-16T08:14:22 | binh | login_failed | vpn-gateway | reason=bad_password
+    2026-10-16T08:14:40 | chi | login_failed | vpn-gateway | reason=bad_password

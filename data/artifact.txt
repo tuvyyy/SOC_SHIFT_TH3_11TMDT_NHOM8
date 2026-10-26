@@ -1,0 +1,3 @@
+mode=restricted
+backup_enabled=false
+logging=verbose

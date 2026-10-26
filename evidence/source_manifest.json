@@ -1,0 +1,10 @@
+{
+  "source": "SOC_SHIFT_Student_Pack.zip supplied by user",
+  "algorithm": "SHA-256",
+  "note": "Hashes of exact original data bytes; separate from the ticket baseline for artifact.txt.",
+  "sha256": {
+    "data/auth_events.csv": "6d9b9f0896eb37810ec57d45afa941c38a40f188099db6f93ddd89c78bd8f78c",
+    "data/hash_baseline.txt": "950b1d834ea7f851100f41a71631f39c3d37de6f83616a390a14c4456d8c790c",
+    "data/artifact.txt": "adf82e65e0c245e5a86d868fcf5869c77da573171e36b6f1730059bf4324f138"
+  }
+}

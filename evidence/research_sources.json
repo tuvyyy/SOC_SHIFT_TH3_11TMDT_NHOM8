@@ -1,0 +1,33 @@
+{
+  "accessed_date_vietnam": "2026-10-16",
+  "queries": [
+    "site.linkedin.com/posts password spraying successful login Microsoft security",
+    "site.microsoft.com security blog password spray successful sign ins investigation"
+  ],
+  "social_post": {
+    "url": "https://www.linkedin.com/posts/dvonbueren_threat-actors-misuse-oauth-applications-to-activity-7141698485967343616-yutK",
+    "author": "Daniel von B?ren",
+    "datePublished": "2023-12-16T08:00:05.369Z",
+    "date_source": "JSON-LD in public LinkedIn HTML",
+    "visible_relative_time": "2y",
+    "title": "Threat actors misuse OAuth applications to automate financially driven attacks"
+  },
+  "technical_sources": [
+    {
+      "url": "https://www.microsoft.com/en-us/security/blog/2023/12/12/threat-actors-misuse-oauth-applications-to-automate-financially-driven-attacks/",
+      "author": "Microsoft Threat Intelligence",
+      "published": "2023-12-12",
+      "purpose": "Primary source of the social share; OAuth case research"
+    },
+    {
+      "url": "https://attack.mitre.org/techniques/T1110/003/",
+      "author": "MITRE ATT&CK",
+      "purpose": "Independent definition of password spraying; hypothesis only for supplied logs"
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/security/operations/incident-response-playbook-password-spray",
+      "author": "Microsoft",
+      "purpose": "Technical investigation playbook"
+    }
+  ]
+}

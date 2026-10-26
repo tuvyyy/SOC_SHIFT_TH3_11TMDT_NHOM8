@@ -1,0 +1,13 @@
+DOM/API interaction checks: 10 PASS
+1. Initial load: two cases, 15 rows, hash awaits an explicit action
+2. Many accounts: one click selects the correct three users without typing an IP
+3. Fail then success: six rows, green success, raw-log toggle and clear filter
+4. Overview case opens its evidence directly
+5. Sample hash: one action computes and displays MISMATCH
+6. Custom hash: validation, binary MATCH and clearing stale results on input changes
+7. Python repair: original runs first, unlocks fixed version, then shows real output
+8. Reports: five compact sections, technical details collapsed, all document tabs render
+9. Invalid CSV retains the last valid analysis
+10. Empty dataset has no misleading case buttons; restoring sample rebuilds cases
+
+No browser renderer was connected; visual layout remains unverified.

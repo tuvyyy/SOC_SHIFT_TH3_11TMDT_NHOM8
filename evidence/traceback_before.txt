@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "C:\SOC_SHIFT_TH3_11TMDT_NHOM8\evidence\original\traceback_exercise.py", line 10, in <module>
+    if record["failed_count"] >= 4:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>=' not supported between instances of 'str' and 'int'

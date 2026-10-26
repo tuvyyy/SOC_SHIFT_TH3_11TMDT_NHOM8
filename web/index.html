@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="SOC SHIFT — bài thực hành phân tích log, kiểm tra tệp và sửa lỗi Python.">
+  <title>SOC SHIFT · Nhóm 8</title>
+  <link rel="stylesheet" href="/styles.css?v=4">
+  <script defer src="/app.js?v=4"></script>
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="#overview" aria-label="SOC SHIFT, tổng quan">soc<span>shift<span class="brand-dot">.</span></span></a>
+    <div class="sidebar-caption">BÀI THỰC HÀNH</div>
+    <nav aria-label="Các phần của bài">
+      <button class="nav-item active" data-page="overview"><span class="nav-number">○</span>Tổng quan</button>
+      <button class="nav-item" data-page="logs"><span class="nav-number">01</span>Log đăng nhập</button>
+      <button class="nav-item" data-page="integrity"><span class="nav-number">02</span>Kiểm tra tệp</button>
+      <button class="nav-item" data-page="traceback"><span class="nav-number">03</span>Sửa lỗi Python</button>
+      <button class="nav-item" data-page="documents"><span class="nav-number">04</span>Báo cáo</button>
+    </nav>
+    <div class="sidebar-bottom"><strong>Nhóm 8</strong><span>TH3 · 11TMDT</span><small>SOC-0815 · Dữ liệu mô phỏng</small></div>
+  </aside>
+  <div class="app-shell">
+    <main>
+      <header class="page-heading"><div><p id="page-step" class="page-step">SOC-0815</p><h1 id="page-title">Ca trực SOC</h1><p id="page-description">Hai nguồn đăng nhập cần kiểm tra.</p></div><div class="heading-actions" id="data-actions"><button class="button secondary" id="upload-button">Đổi CSV</button><button class="button secondary" id="refresh-button">Đọc lại log</button></div></header>
+      <input id="csv-upload" type="file" accept=".csv,text/csv" hidden>
+      <div id="error-banner" class="error-banner" role="alert" hidden></div>
+      <div class="source-strip" id="source-strip"><span class="source-dot"></span><strong id="source-name">Đang đọc log…</strong><span id="source-range"></span><button class="text-button" id="restore-button" hidden>Dùng lại mẫu</button></div>
+
+      <section id="page-overview" class="page active" aria-label="Tổng quan">
+        <div class="stats-strip"><div><strong id="stat-total">—</strong><span>sự kiện</span></div><div><strong id="stat-failed">—</strong><span>lần thất bại</span></div><div><strong id="stat-alerts">—</strong><span>IP cần kiểm tra</span></div><p id="stat-summary"></p></div>
+        <div class="section-heading"><h2>Phát hiện trong log</h2><button class="text-button" id="export-findings">Xuất JSON ↓</button></div>
+        <div id="finding-list" class="case-grid"></div>
+        <p class="scope-note">Đây là mức ưu tiên điều tra, chưa phải kết luận tài khoản bị chiếm.</p>
+        <details class="panel supporting-detail"><summary>Biểu đồ và quy tắc phát hiện</summary><div class="chart-toolbar"><h3>Hoạt động đăng nhập</h3><div class="segmented" aria-label="Kiểu biểu đồ"><button class="selected" data-chart="time">Theo thời gian</button><button data-chart="ip">Theo IP</button></div></div><div id="activity-chart" class="chart" role="img" aria-label="Biểu đồ đăng nhập"></div><div class="chart-legend"><span><i class="legend-fail"></i>Thất bại</span><span><i class="legend-success"></i>Thành công</span></div><p class="rules-note" id="rules-note"></p></details>
+        <div class="page-end"><span>Bắt đầu bằng các dòng log làm bằng chứng.</span><button class="button primary" data-go="logs">Xem log đăng nhập →</button></div>
+      </section>
+
+      <section id="page-logs" class="page" aria-label="Log đăng nhập">
+        <div class="scenario-tabs" aria-label="Chọn nhóm log"><button class="selected" data-scenario="all">Tất cả log</button><button data-scenario="sequence">Fail rồi thành công</button><button data-scenario="spray">Nhiều tài khoản</button></div>
+        <div id="log-context" class="log-context" hidden></div>
+        <article class="panel"><div class="log-tools"><input id="log-search" type="search" aria-label="Tìm log" placeholder="Tìm IP hoặc tài khoản"><select id="event-filter" aria-label="Loại đăng nhập"><option value="all">Tất cả sự kiện</option><option value="login_failed">Thất bại</option><option value="login_success">Thành công</option></select><label class="raw-toggle"><input type="checkbox" id="raw-log">Log gốc</label><button class="text-button" id="clear-log-filters" hidden>Bỏ lọc</button><button class="button secondary" id="export-logs">Xuất CSV ↓</button></div><div class="table-scroll"><table class="log-table"><thead><tr><th><button data-sort="timestamp">Thời gian ↕</button></th><th><button data-sort="user">Tài khoản ↕</button></th><th><button data-sort="src_ip">IP nguồn ↕</button></th><th><button data-sort="event">Kết quả ↕</button></th><th>Hệ thống</th><th>Chi tiết</th></tr></thead><tbody id="log-rows"></tbody></table></div><div class="table-footer"><span id="log-count"></span><span>Giờ theo nguồn log</span></div></article>
+        <div class="page-end"><button class="text-button" data-go="overview">← Tổng quan</button><button class="button primary" data-go="integrity">Tiếp: Kiểm tra tệp →</button></div>
+      </section>
+
+      <section id="page-integrity" class="page" aria-label="Kiểm tra tệp">
+        <div class="hash-workspace"><article class="panel input-panel"><div class="panel-heading"><span class="step-label">ĐẦU VÀO</span><h2>So sánh SHA-256</h2></div><div class="mode-tabs"><button class="selected" data-hash-mode="sample">Dữ liệu bài tập</button><button data-hash-mode="custom">Chọn tệp khác</button></div><div id="sample-hash-input" class="sample-files"><div><span class="file-mark">TXT</span><div><strong>artifact.txt</strong><span>Tệp cần kiểm tra</span></div></div><div><span class="file-mark">SHA</span><div><strong>hash_baseline.txt</strong><span>Hash chuẩn từ ticket</span></div></div></div><div id="custom-hash-input" class="custom-input" hidden><label for="artifact-upload">Tệp cần kiểm tra</label><input type="file" id="artifact-upload"><label for="baseline-upload">Tệp baseline</label><input type="file" id="baseline-upload" accept=".txt,.sha256"><details class="baseline-detail"><summary>Nhập hoặc xem baseline</summary><textarea id="baseline-input" rows="4" spellcheck="false" placeholder="SHA256 tên_tệp 64_ký_tự_hex"></textarea></details></div><div class="panel-action"><button class="button primary wide" id="check-hash">So sánh SHA-256</button></div></article><article class="panel result-panel"><div class="panel-heading"><span class="step-label">KẾT QUẢ</span><h2 id="hash-heading">Chưa kiểm tra</h2></div><div id="hash-result" aria-live="polite"><div class="waiting-state"><span class="waiting-symbol">= ?</span><p>Kết quả sẽ xuất hiện ở đây.</p></div></div><div id="hash-export-row" class="result-export" hidden><button class="text-button" id="export-hash">Tải kết quả JSON ↓</button></div></article></div>
+        <div class="page-end"><button class="text-button" data-go="logs">← Log đăng nhập</button><button class="button primary" data-go="traceback">Tiếp: Sửa lỗi Python →</button></div>
+      </section>
+
+      <section id="page-traceback" class="page" aria-label="Sửa lỗi Python">
+        <div class="repair-grid"><article class="panel repair-card"><div class="panel-heading"><span class="step-label">BƯỚC 1</span><h2>Chạy để thấy lỗi</h2><p>So sánh chuỗi với số nguyên.</p></div><div class="code-sample"><div class="code-caption">Bản gốc · dòng gây lỗi</div><pre>if record[<span class="code-string">"failed_count"</span>] <mark>&gt;= 4</mark>:</pre></div><div class="panel-action"><button id="run-original" class="button primary wide">1. Chạy bản gốc</button></div><div id="original-result" class="run-result" aria-live="polite" hidden></div><details id="original-output" class="raw-output" hidden><summary>Xem traceback đầy đủ</summary><pre id="traceback-before"></pre></details></article><article class="panel repair-card"><div class="panel-heading"><span class="step-label">BƯỚC 2</span><h2>Chuyển sang số rồi chạy lại</h2><p>Kiểm tra giá trị trước khi gọi int().</p></div><div class="code-sample"><div class="code-caption">Bản sửa · chuyển kiểu trước khi so sánh</div><pre>failed_count = <span class="code-fix">parse_failed_count</span>(
+    record[<span class="code-string">"failed_count"</span>])
+if failed_count &gt;= FAILURE_THRESHOLD:</pre></div><div class="panel-action"><button id="run-fixed" class="button primary wide" disabled>2. Chạy bản sửa</button></div><div id="fixed-result" class="run-result" aria-live="polite" hidden></div><details id="fixed-output" class="raw-output" hidden><summary>Xem đầu ra đầy đủ</summary><pre id="traceback-after"></pre></details></article></div>
+        <div id="repair-conclusion" class="repair-conclusion" hidden></div>
+        <div class="page-end"><button class="text-button" data-go="integrity">← Kiểm tra tệp</button><button class="button primary" data-go="documents">Tiếp: Báo cáo →</button></div>
+      </section>
+
+      <section id="page-documents" class="page" aria-label="Báo cáo"><div class="document-tabs"><button data-doc="report" class="selected">Báo cáo sự cố</button><button data-doc="research">Nguồn tham khảo</button><button data-doc="assignment">Bài làm & FLAG</button><button data-doc="guide">Cách chạy</button><button class="text-button" id="download-document">Tải tài liệu ↓</button></div><p class="document-notice">Tài liệu của bộ dữ liệu mẫu auth_events.csv.</p><article id="document-body" class="panel markdown-body">Đang tải tài liệu…</article><div class="page-end"><button class="text-button" data-go="traceback">← Sửa lỗi Python</button><button class="button secondary" data-go="overview">Về tổng quan</button></div></section>
+      <footer>Nhóm 8 · TH3 · 11TMDT</footer>
+    </main>
+  </div>
+  <div id="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+timestamp,user,src_ip,event,asset,details
+2026-10-16T08:00:10,linh,10.20.0.11,login_success,vpn-gateway,MFA=passed
+2026-10-16T08:04:32,nam,10.20.0.12,login_success,vpn-gateway,MFA=passed
+2026-10-16T08:10:01,admin,203.0.113.77,login_failed,vpn-gateway,reason=bad_password
+2026-10-16T08:10:14,admin,203.0.113.77,login_failed,vpn-gateway,reason=bad_password
+2026-10-16T08:10:26,root,203.0.113.77,login_failed,vpn-gateway,reason=unknown_user
+2026-10-16T08:10:39,admin,203.0.113.77,login_failed,vpn-gateway,reason=bad_password
+2026-10-16T08:10:52,admin,203.0.113.77,login_failed,vpn-gateway,reason=bad_password
+2026-10-16T08:11:12,admin,203.0.113.77,login_success,vpn-gateway,MFA=unknown; session_created=true
+2026-10-16T08:14:05,mai,198.51.100.24,login_failed,vpn-gateway,reason=bad_password
+2026-10-16T08:14:22,binh,198.51.100.24,login_failed,vpn-gateway,reason=bad_password
+2026-10-16T08:14:40,chi,198.51.100.24,login_failed,vpn-gateway,reason=bad_password
+2026-10-16T08:19:21,linh,10.20.0.11,login_failed,vpn-gateway,reason=typo
+2026-10-16T08:20:03,linh,10.20.0.11,login_success,vpn-gateway,MFA=passed
+2026-10-16T08:22:44,guest,192.0.2.44,login_failed,wiki,reason=bad_password
+2026-10-16T08:25:18,thao,10.20.0.15,login_success,vpn-gateway,MFA=passed

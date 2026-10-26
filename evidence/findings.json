@@ -1,0 +1,153 @@
+{
+  "input": "C:\\SOC_SHIFT_TH3_11TMDT_NHOM8\\data\\auth_events.csv",
+  "event_count": 15,
+  "scope": "entire_file",
+  "failure_threshold": 4,
+  "spray_unique_users_threshold": 3,
+  "findings": [
+    {
+      "src_ip": "203.0.113.77",
+      "priority": "HIGH",
+      "rules": [
+        "REPEATED_FAILURES"
+      ],
+      "failed_count": 5,
+      "unique_failed_users": 2,
+      "users": [
+        "admin",
+        "root"
+      ],
+      "assets": [
+        "vpn-gateway"
+      ],
+      "first_failure": "2026-10-16T08:10:01",
+      "last_failure": "2026-10-16T08:10:52",
+      "reasons": [
+        "5 lần login_failed (ngưỡng 4)",
+        "Có login_success sau login_failed: cần đối chiếu thời gian / phiên / MFA; chưa đủ kết luận tài khoản bị chiếm"
+      ],
+      "success_after_failures": [
+        {
+          "timestamp": "2026-10-16T08:11:12",
+          "user": "admin",
+          "src_ip": "203.0.113.77",
+          "event": "login_success",
+          "asset": "vpn-gateway",
+          "details": "MFA=unknown; session_created=true",
+          "record_number": 8,
+          "failures_before_success": 5,
+          "same_user_failed_before": true,
+          "threshold_reached_before_success": true
+        }
+      ],
+      "evidence": [
+        {
+          "timestamp": "2026-10-16T08:10:01",
+          "user": "admin",
+          "src_ip": "203.0.113.77",
+          "event": "login_failed",
+          "asset": "vpn-gateway",
+          "details": "reason=bad_password",
+          "record_number": 3
+        },
+        {
+          "timestamp": "2026-10-16T08:10:14",
+          "user": "admin",
+          "src_ip": "203.0.113.77",
+          "event": "login_failed",
+          "asset": "vpn-gateway",
+          "details": "reason=bad_password",
+          "record_number": 4
+        },
+        {
+          "timestamp": "2026-10-16T08:10:26",
+          "user": "root",
+          "src_ip": "203.0.113.77",
+          "event": "login_failed",
+          "asset": "vpn-gateway",
+          "details": "reason=unknown_user",
+          "record_number": 5
+        },
+        {
+          "timestamp": "2026-10-16T08:10:39",
+          "user": "admin",
+          "src_ip": "203.0.113.77",
+          "event": "login_failed",
+          "asset": "vpn-gateway",
+          "details": "reason=bad_password",
+          "record_number": 6
+        },
+        {
+          "timestamp": "2026-10-16T08:10:52",
+          "user": "admin",
+          "src_ip": "203.0.113.77",
+          "event": "login_failed",
+          "asset": "vpn-gateway",
+          "details": "reason=bad_password",
+          "record_number": 7
+        },
+        {
+          "timestamp": "2026-10-16T08:11:12",
+          "user": "admin",
+          "src_ip": "203.0.113.77",
+          "event": "login_success",
+          "asset": "vpn-gateway",
+          "details": "MFA=unknown; session_created=true",
+          "record_number": 8
+        }
+      ]
+    },
+    {
+      "src_ip": "198.51.100.24",
+      "priority": "MEDIUM",
+      "rules": [
+        "POSSIBLE_PASSWORD_SPRAY"
+      ],
+      "failed_count": 3,
+      "unique_failed_users": 3,
+      "users": [
+        "binh",
+        "chi",
+        "mai"
+      ],
+      "assets": [
+        "vpn-gateway"
+      ],
+      "first_failure": "2026-10-16T08:14:05",
+      "last_failure": "2026-10-16T08:14:40",
+      "reasons": [
+        "3 tài khoản bị thử (ngưỡng 3); giả thuyết password spraying"
+      ],
+      "success_after_failures": [],
+      "evidence": [
+        {
+          "timestamp": "2026-10-16T08:14:05",
+          "user": "mai",
+          "src_ip": "198.51.100.24",
+          "event": "login_failed",
+          "asset": "vpn-gateway",
+          "details": "reason=bad_password",
+          "record_number": 9
+        },
+        {
+          "timestamp": "2026-10-16T08:14:22",
+          "user": "binh",
+          "src_ip": "198.51.100.24",
+          "event": "login_failed",
+          "asset": "vpn-gateway",
+          "details": "reason=bad_password",
+          "record_number": 10
+        },
+        {
+          "timestamp": "2026-10-16T08:14:40",
+          "user": "chi",
+          "src_ip": "198.51.100.24",
+          "event": "login_failed",
+          "asset": "vpn-gateway",
+          "details": "reason=bad_password",
+          "record_number": 11
+        }
+      ]
+    }
+  ]
+}
